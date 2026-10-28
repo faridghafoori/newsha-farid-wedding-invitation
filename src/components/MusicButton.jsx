@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useI18n } from "../i18n/LocaleContext.jsx";
 
 const SRC = "/music/music1.mp3";
 
@@ -18,6 +19,7 @@ export function playInviteMusic() {
 }
 
 export default function MusicButton() {
+  const { t } = useI18n();
   const [playing, setPlaying] = useState(() => Boolean(audio && !audio.paused));
   const [missing, setMissing] = useState(false);
 
@@ -68,9 +70,9 @@ export default function MusicButton() {
       type="button"
       className={`music ${playing ? "is-playing" : ""}`}
       onClick={toggle}
-      aria-label={muted ? "Unmute music" : "Mute music"}
+      aria-label={muted ? t.musicUnmute : t.musicMute}
       aria-pressed={playing}
-      title={missing ? "Music file is missing" : muted ? "Unmute" : "Mute"}
+      title={missing ? t.musicMissing : muted ? t.unmute : t.mute}
     >
       <span className="music-disc" aria-hidden="true" />
       <span className="music-bars" aria-hidden="true">

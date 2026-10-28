@@ -1,7 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        var segment = location.pathname.split("/").filter(Boolean)[0];
+        var locale = segment === "fa" ? "fa" : "en";
+        document.documentElement.lang = locale;
+        document.documentElement.dir = locale === "fa" ? "rtl" : "ltr";
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"

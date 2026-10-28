@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { wishIdeas } from "../data.js";
+import { useI18n } from "../i18n/LocaleContext.jsx";
 
 const STORAGE_KEY = "nf-wedding-wishes";
 
 export default function Guestbook() {
+  const { t } = useI18n();
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [wishes, setWishes] = useState([]);
@@ -37,44 +38,44 @@ export default function Guestbook() {
   }
 
   function inspire() {
-    const idea = wishIdeas[Math.floor(Math.random() * wishIdeas.length)];
+    const idea = t.wishIdeas[Math.floor(Math.random() * t.wishIdeas.length)];
     setMessage(idea);
   }
 
   return (
     <section className="guestbook">
-      <h2>Guestbook</h2>
+      <h2>{t.guestbookTitle}</h2>
       <form onSubmit={submit}>
         <input
           value={name}
           onChange={(event) => setName(event.target.value)}
-          placeholder="Enter your name*"
+          placeholder={t.guestNamePlaceholder}
           required
           maxLength={80}
-          aria-label="Your name"
+          aria-label={t.guestNameLabel}
         />
         <textarea
           value={message}
           onChange={(event) => setMessage(event.target.value)}
-          placeholder="Enter your wishes*"
+          placeholder={t.wishesPlaceholder}
           required
           rows={4}
           maxLength={1000}
-          aria-label="Your wishes"
+          aria-label={t.wishesLabel}
         />
         <div className="guest-actions">
-          <button type="button" className="magic" onClick={inspire} title="Suggest a wish">
+          <button type="button" className="magic" onClick={inspire} title={t.suggestWish}>
             <span aria-hidden="true">🪄</span>
-            <span className="sr-only">Suggest a wish</span>
+            <span className="sr-only">{t.suggestWish}</span>
           </button>
           <button type="submit" className="send" disabled={!name.trim() || !message.trim()}>
-            Send Wishes
+            {t.sendWishes}
           </button>
         </div>
       </form>
 
       {wishes.length === 0 ? (
-        <p className="empty-wishes">No wishes yet. Be the first!</p>
+        <p className="empty-wishes">{t.emptyWishes}</p>
       ) : (
         <ul className="wishes">
           {wishes.map((wish) => (

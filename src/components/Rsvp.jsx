@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { SCRIPT_URL } from "../api/config.js";
+import { useI18n } from "../i18n/LocaleContext.jsx";
 
 const STORAGE_KEY = "nf-wedding-rsvp";
 
 export default function Rsvp() {
+  const { t } = useI18n();
   const [name, setName] = useState("");
   const [attending, setAttending] = useState("");
   const [saved, setSaved] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -25,7 +27,7 @@ export default function Rsvp() {
     if (!name.trim() || !attending || loading) return;
 
     setLoading(true);
-    setError("");
+    setError(false);
 
     const entry = {
       name: name.trim(),
@@ -51,7 +53,7 @@ export default function Rsvp() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(entry));
       setSaved(entry);
     } catch {
-      setError("Unable to submit your RSVP. Please try again.");
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -60,40 +62,34 @@ export default function Rsvp() {
   return (
     <section className="rsvp">
       <form className="rsvp-card" onSubmit={submit}>
-        <h2>Confirm your attendance</h2>
-        <p>
-          Your presence would be an honor. Please RSVP so we can prepare the warmest welcome for you.
-        </p>
+        <h2>{t.rsvpTitle}</h2>
+        <p>{t.rsvpIntro}</p>
 
         {saved ? (
           <div className="rsvp-thanks">
-            <p>Thank you, {saved.name}.</p>
-            <p>
-              {saved.attending === "yes"
-                ? "We can't wait to celebrate with you."
-                : "We'll miss you, and we're grateful you let us know."}
-            </p>
+            <p>{t.thanks(saved.name)}</p>
+            <p>{saved.attending === "yes" ? t.attendingYes : t.attendingNo}</p>
             <button
               type="button"
               className="rsvp-edit"
               onClick={() => {
                 setName(saved.name);
                 setAttending(saved.attending);
-                setError("");
+                setError(false);
                 setSaved(null);
               }}
             >
-              Change response
+              {t.changeResponse}
             </button>
           </div>
         ) : (
           <>
             <label className="field">
-              <span>Your name</span>
+              <span>{t.yourName}</span>
               <input
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder="Enter your name"
+                placeholder={t.namePlaceholder}
                 required
                 maxLength={100}
                 disabled={loading}
@@ -101,7 +97,7 @@ export default function Rsvp() {
             </label>
 
             <fieldset disabled={loading}>
-              <legend>Will you attend?</legend>
+              <legend>{t.willYouAttend}</legend>
               <label className={attending === "yes" ? "choice is-selected" : "choice"}>
                 <input
                   type="radio"
@@ -114,7 +110,7 @@ export default function Rsvp() {
                 <span className="choice-icon" aria-hidden="true">
                   ✓
                 </span>
-                I will attend
+                {t.willAttend}
               </label>
               <label className={attending === "no" ? "choice is-selected" : "choice"}>
                 <input
@@ -127,7 +123,7 @@ export default function Rsvp() {
                 <span className="choice-icon" aria-hidden="true">
                   ×
                 </span>
-                Sorry, I can&apos;t make it
+                {t.cannotAttend}
               </label>
             </fieldset>
 
@@ -136,12 +132,12 @@ export default function Rsvp() {
               type="submit"
               disabled={loading || !name.trim() || !attending}
             >
-              {loading ? "Submitting..." : "Confirm"}
+              {loading ? t.submitting : t.confirm}
             </button>
 
             {error && (
               <p className="rsvp-error" role="alert">
-                {error}
+                {t.rsvpError}
               </p>
             )}
           </>

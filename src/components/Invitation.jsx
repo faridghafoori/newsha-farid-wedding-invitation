@@ -1,4 +1,4 @@
-import { wedding } from "../data.js";
+import { useI18n } from "../i18n/LocaleContext.jsx";
 import AutoScroll from "./AutoScroll.jsx";
 import Gallery from "./Gallery.jsx";
 import MusicButton from "./MusicButton.jsx";
@@ -19,6 +19,8 @@ const sprigs = [
 ];
 
 export default function Invitation({ autoScroll = false }) {
+  const { t } = useI18n();
+
   return (
     <main className="page">
       <AutoScroll active={autoScroll} />
@@ -34,22 +36,22 @@ export default function Invitation({ autoScroll = false }) {
         ))}
 
         <header className="hero">
-          <p className="save-date">Save The Date</p>
+          <p className="save-date">{t.saveTheDate}</p>
           <div className="wreath">
             <img src="/theme/flower.webp" alt="" />
             <div className="mono">
-              <span>N</span>
-              <span className="mono-amp">&</span>
-              <span>F</span>
+              <span>{t.monogram[0]}</span>
+              <span className="mono-amp">{t.amp}</span>
+              <span>{t.monogram[1]}</span>
             </div>
           </div>
         </header>
 
         <section className="names">
-          <p>We joyfully invite you to our wedding✨</p>
-          <h1>{wedding.bride}</h1>
-          <span className="names-amp">&</span>
-          <h1>{wedding.groom}</h1>
+          <p>{t.inviteLine}</p>
+          <h1>{t.bride}</h1>
+          <span className="names-amp">{t.ampNames}</span>
+          <h1>{t.groom}</h1>
         </section>
 
         <Gallery />
@@ -61,7 +63,7 @@ export default function Invitation({ autoScroll = false }) {
         {/* <Guestbook /> */}
 
         <footer className="closing">
-          <p>Your presence would be the greatest gift we could receive!</p>
+          <p>{t.closing}</p>
           <img src="/theme/flower6.webp" alt="" />
         </footer>
       </article>

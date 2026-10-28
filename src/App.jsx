@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Envelope from "./components/Envelope.jsx";
 import Invitation from "./components/Invitation.jsx";
+import LocaleToggle from "./components/LocaleToggle.jsx";
 
 export default function App() {
   const [opened, setOpened] = useState(false);
@@ -11,5 +12,10 @@ export default function App() {
     setOpened(true);
   }
 
-  return opened ? <Invitation autoScroll={autoScroll} /> : <Envelope onOpen={openInvitation} />;
+  return (
+    <>
+      <LocaleToggle />
+      {opened ? <Invitation autoScroll={autoScroll} /> : <Envelope onOpen={openInvitation} />}
+    </>
+  );
 }

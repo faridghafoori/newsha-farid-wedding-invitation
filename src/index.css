@@ -527,10 +527,10 @@ p {
 }
 
 .stack-prev {
-  left: calc(50% - 248px);
+  inset-inline-start: calc(50% - 248px);
 }
 .stack-next {
-  right: calc(50% - 248px);
+  inset-inline-end: calc(50% - 248px);
 }
 
 .dots {
@@ -583,13 +583,13 @@ p {
 
 .lightbox-close {
   top: 12px;
-  right: 18px;
+  inset-inline-start: 18px;
 }
 .lightbox-prev {
-  left: 12px;
+  inset-inline-start: 12px;
 }
 .lightbox-next {
-  right: 12px;
+  inset-inline-end: 12px;
 }
 
 .reception {
@@ -708,14 +708,14 @@ p {
   padding: 6px 0;
   font-size: 11px;
   opacity: 0.6;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
 }
 
 .calendar-cell {
   height: 32px;
   display: grid;
   place-items: center;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
   font-size: 12px;
 }
 
@@ -764,7 +764,7 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.7);
   box-shadow: 0 18px 40px rgba(80, 70, 40, 0.12);
   backdrop-filter: blur(8px);
-  text-align: left;
+  text-align: start;
   color: var(--ink);
   font-family: "Roboto", "Helvetica Neue", sans-serif;
 }
@@ -774,7 +774,7 @@ p {
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
   color: #1f2937;
 }
 
@@ -796,7 +796,7 @@ fieldset {
 .field span,
 fieldset legend {
   display: block;
-  margin-bottom: 8px;
+  margin: 12px 0 6px;
   font-size: 14px;
   font-weight: 600;
   color: #374151;
@@ -820,7 +820,7 @@ fieldset legend {
   border-color: var(--sage);
   background: transparent;
   color: var(--sage);
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
 }
 
 .field input:focus,
@@ -923,7 +923,7 @@ fieldset legend {
   max-width: 420px;
   margin: 12px auto 0;
   color: var(--gold);
-  font-family: "Roboto", sans-serif;
+  font-family: "Vazirmatn", sans-serif;
   font-size: 13px;
   line-height: 1.7;
 }
@@ -950,7 +950,7 @@ fieldset legend {
   gap: 6px;
   margin-top: 24px;
   color: var(--gold);
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
   font-weight: 500;
   text-decoration: none;
 }
@@ -997,7 +997,7 @@ fieldset legend {
   grid-template-columns: 52px 64px 16px 1fr;
   align-items: center;
   column-gap: 8px;
-  text-align: left;
+  text-align: start;
 }
 
 .sched-icon-cell img {
@@ -1009,13 +1009,13 @@ fieldset legend {
 
 .sched-time,
 .sched-title {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
   font-size: 14px;
   color: var(--gold);
 }
 
 .sched-time {
-  text-align: right;
+  text-align: end;
 }
 
 .sched-dot {
@@ -1081,7 +1081,7 @@ fieldset legend {
 .empty-wishes {
   margin-top: 22px;
   color: var(--gold);
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
   font-size: 14px;
 }
 
@@ -1091,7 +1091,7 @@ fieldset legend {
   padding: 0;
   display: grid;
   gap: 12px;
-  text-align: left;
+  text-align: start;
 }
 
 .wishes li {
@@ -1110,7 +1110,7 @@ fieldset legend {
 .wishes p {
   margin-top: 4px;
   color: var(--gold);
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -1127,7 +1127,7 @@ fieldset legend {
   position: relative;
   z-index: 2;
   color: var(--sage);
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Vazirmatn", sans-serif;
   font-size: 13px;
   font-weight: 500;
 }
@@ -1135,15 +1135,15 @@ fieldset legend {
 .closing img {
   position: absolute;
   left: 50%;
-  bottom: 0;
-  width: min(860px, 140%);
+  bottom: -32px;
+  width: 100%;
   transform: translateX(-50%);
   pointer-events: none;
 }
 
 .music {
   position: fixed;
-  right: 18px;
+  inset-inline-end: 18px;
   bottom: 18px;
   z-index: 30;
   width: 48px;
@@ -1250,10 +1250,10 @@ fieldset legend {
   }
 
   .stack-prev {
-    left: calc(50% - 122px);
+    inset-inline-start: calc(50% - 122px);
   }
   .stack-next {
-    right: calc(50% - 122px);
+    inset-inline-end: calc(50% - 122px);
   }
 
   .schedule li {
@@ -1281,4 +1281,128 @@ fieldset legend {
     animation: none !important;
     transition: none !important;
   }
+}
+
+.locale-toggle {
+  position: fixed;
+  z-index: 120;
+  top: 16px;
+  inset-inline-end: 16px;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.94);
+  border: 1px solid rgba(108, 126, 84, 0.28);
+  box-shadow: 0 8px 18px rgba(40, 50, 24, 0.16);
+}
+
+.locale-toggle button {
+  border: 0;
+  background: transparent;
+  color: #6c7e54;
+  border-radius: 999px;
+  min-width: 42px;
+  padding: 7px 12px;
+  font-family: "Vazirmatn", "Lora", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.locale-toggle button[aria-pressed="true"] {
+  background: #6c7e54;
+  color: #fffaf2;
+}
+
+html[dir="rtl"] body {
+  font-family: "Vazirmatn", sans-serif;
+}
+
+html[dir="rtl"] .names h1,
+html[dir="rtl"] .env-amp,
+html[dir="rtl"] .names-amp {
+  font-family: "Vazirmatn", sans-serif;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .env-date,
+html[dir="rtl"] .env-line,
+html[dir="rtl"] .open-btn,
+html[dir="rtl"] .save-date,
+html[dir="rtl"] .names p,
+html[dir="rtl"] .gallery h2,
+html[dir="rtl"] .reception > h2,
+html[dir="rtl"] .reception h3,
+html[dir="rtl"] .venue h2,
+html[dir="rtl"] .dress h2,
+html[dir="rtl"] .schedule h2,
+html[dir="rtl"] .guestbook h2,
+html[dir="rtl"] .rsvp-card,
+html[dir="rtl"] .rsvp-thanks p:first-child,
+html[dir="rtl"] .countdown,
+html[dir="rtl"] .countdown h2,
+html[dir="rtl"] .reception-time,
+html[dir="rtl"] .calendar-title,
+html[dir="rtl"] .calendar-week span,
+html[dir="rtl"] .calendar-cell,
+html[dir="rtl"] .calendar-link,
+html[dir="rtl"] .directions,
+html[dir="rtl"] .sched-time,
+html[dir="rtl"] .sched-title,
+html[dir="rtl"] .closing p,
+html[dir="rtl"] .when-row,
+html[dir="rtl"] .when-month,
+html[dir="rtl"] .guestbook input,
+html[dir="rtl"] .guestbook textarea,
+html[dir="rtl"] .send,
+html[dir="rtl"] .empty-wishes,
+html[dir="rtl"] .wishes strong,
+html[dir="rtl"] .wishes p {
+  font-family: "Vazirmatn", sans-serif;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .names h1 {
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+html[dir="rtl"] .names p,
+html[dir="rtl"] .closing p,
+html[dir="rtl"] .rsvp-card > p,
+html[dir="rtl"] .countdown p {
+  line-height: 1.9;
+}
+
+html[dir="rtl"] .save-date,
+html[dir="rtl"] .names p,
+html[dir="rtl"] .gallery h2,
+html[dir="rtl"] .reception > h2,
+html[dir="rtl"] .reception h3,
+html[dir="rtl"] .venue h2,
+html[dir="rtl"] .dress h2,
+html[dir="rtl"] .schedule h2,
+html[dir="rtl"] .guestbook h2,
+html[dir="rtl"] .when-row,
+html[dir="rtl"] .when-month,
+html[dir="rtl"] .reception-time,
+html[dir="rtl"] .send {
+  text-transform: none;
+}
+
+html[dir="rtl"] .calendar-title {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+html[dir="rtl"] .names p {
+  max-width: 24rem;
+}
+
+html[dir="rtl"] .lightbox-prev,
+html[dir="rtl"] .stack-prev,
+html[dir="rtl"] .stack-next,
+html[dir="rtl"] .lightbox-next {
+  transform: rotate(180deg);
 }

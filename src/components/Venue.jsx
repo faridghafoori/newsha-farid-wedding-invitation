@@ -4,22 +4,26 @@ import {
   mapEmbedUrl,
   wedding,
 } from "../data.js";
+import { useI18n } from "../i18n/LocaleContext.jsx";
 
 export default function Venue() {
+  const { locale, t } = useI18n();
+
   return (
     <section className="venue">
-      <h2>{wedding.venue}</h2>
-      <p className="venue-address" dir="rtl">
+      <h2>{t.venue}</h2>
+      <p className="venue-address" lang="fa" dir="rtl">
         {wedding.address}
       </p>
       <img
         className="venue-illustration"
         src="/photos/4.jpg"
-        alt="Illustration of Sadra Garden Hall"
+        alt={t.venueImageAlt}
       />
       <iframe
-        title={`Map of ${wedding.venue}`}
-        src={mapEmbedUrl}
+        key={locale}
+        title={t.mapTitle(t.venue)}
+        src={mapEmbedUrl(locale)}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       />
@@ -35,14 +39,14 @@ export default function Venue() {
           href={directionsUrl}
           target="_blank"
           rel="noreferrer">
-          <span aria-hidden="true">⌖</span> Get directions In Google Maps
+          <span aria-hidden="true">⌖</span> {t.directionsGoogle}
         </a>
         <a
           className="directions"
           href={directionsUrlInNeshan}
           target="_blank"
           rel="noreferrer">
-          <span aria-hidden="true">⌖</span> Get directions In Neshan
+          <span aria-hidden="true">⌖</span> {t.directionsNeshan}
         </a>
       </div>
     </section>

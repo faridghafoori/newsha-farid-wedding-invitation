@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { wedding } from "../data.js";
+import { useI18n } from "../i18n/LocaleContext.jsx";
 import { playInviteMusic } from "./MusicButton.jsx";
 
 const sparks = [
@@ -12,6 +12,7 @@ const sparks = [
 ];
 
 export default function Envelope({ onOpen }) {
+  const { t } = useI18n();
   const [leaving, setLeaving] = useState(false);
 
   function handleOpen() {
@@ -32,7 +33,7 @@ export default function Envelope({ onOpen }) {
         </span>
       ))}
 
-      <section className="env-card" aria-label="Wedding invitation">
+      <section className="env-card" aria-label={t.envelopeLabel}>
         <img
           className="env-flora env-flora-tl"
           src="/theme/flower3.webp"
@@ -59,9 +60,9 @@ export default function Envelope({ onOpen }) {
         </div>
 
         <p className="env-monogram">
-          <span>N</span>
-          <span className="env-amp">&</span>
-          <span>F</span>
+          <span>{t.monogram[0]}</span>
+          <span className="env-amp">{t.amp}</span>
+          <span>{t.monogram[1]}</span>
         </p>
 
         <div className="env-rule" aria-hidden="true">
@@ -70,11 +71,11 @@ export default function Envelope({ onOpen }) {
           <span />
         </div>
 
-        <p className="env-date">{wedding.dateLabel}</p>
-        <p className="env-line">Cordially Invites</p>
+        <p className="env-date">{t.dateLabel}</p>
+        <p className="env-line">{t.cordially}</p>
 
         <button type="button" className="open-btn" onClick={handleOpen}>
-          Open
+          {t.open}
         </button>
       </section>
     </main>

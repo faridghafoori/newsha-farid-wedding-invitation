@@ -50,7 +50,8 @@ export default function AutoScroll({ active }) {
 
     function onClick(event) {
       const target = event.target;
-      if (target instanceof Element && target.closest(".rsvp")) return;
+      if (!(target instanceof Element)) return;
+      if (target.closest("button, a, .rsvp, .locale-toggle")) return;
       if (running) stop();
       else start();
     }
