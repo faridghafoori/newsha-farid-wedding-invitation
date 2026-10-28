@@ -868,6 +868,54 @@ fieldset legend {
   color: white;
 }
 
+.guest-count {
+  margin-top: 18px;
+}
+
+.guest-count > span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.guest-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border: 1px solid var(--sage);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.guest-stepper button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sage);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.guest-stepper button:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.guest-count-value {
+  min-width: 2ch;
+  color: #1f2937;
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
 .confirm-btn,
 .send {
   border: 0;

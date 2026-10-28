@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { SCRIPT_URL } from "../api/config.js";
+import { formatDigits } from "../i18n/format.js";
 import { useI18n } from "../i18n/LocaleContext.jsx";
 
 const STORAGE_KEY = "nf-wedding-rsvp";
+const MIN_GUESTS = 1;
+const MAX_GUESTS = 12;
 
 export default function Rsvp() {
-  const { t } = useI18n();
+  const { locale, t } = useI18n();
   const [name, setName] = useState("");
   const [attending, setAttending] = useState("");
+  const [guests, setGuests] = useState(MIN_GUESTS);
   const [saved, setSaved] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -29,9 +33,11 @@ export default function Rsvp() {
     setLoading(true);
     setError(false);
 
+    const party = attending === "yes" ? guests : 0;
     const entry = {
       name: name.trim(),
       attending,
+      guestCount: party,
       at: new Date().toISOString(),
     };
 
@@ -45,6 +51,7 @@ export default function Rsvp() {
         body: JSON.stringify({
           name: entry.name,
           attendance: attending === "yes" ? "attending" : "not_attending",
+          guestCount: party,
         }),
       });
 
@@ -69,16 +76,26 @@ export default function Rsvp() {
           <div className="rsvp-thanks">
             <p>{t.thanks(saved.name)}</p>
             <p>{saved.attending === "yes" ? t.attendingYes : t.attendingNo}</p>
+            {saved.attending === "yes" && (
+              <p>{t.partySize(saved.guests || MIN_GUESTS)}</p>
+            )}
             <button
               type="button"
               className="rsvp-edit"
               onClick={() => {
                 setName(saved.name);
                 setAttending(saved.attending);
+                setGuests(
+                  saved.attending === "yes"
+                    ? Math.min(
+                        MAX_GUESTS,
+                        Math.max(MIN_GUESTS, saved.guests || MIN_GUESTS),
+                      )
+                    : MIN_GUESTS,
+                );
                 setError(false);
                 setSaved(null);
-              }}
-            >
+              }}>
               {t.changeResponse}
             </button>
           </div>
@@ -98,7 +115,10 @@ export default function Rsvp() {
 
             <fieldset disabled={loading}>
               <legend>{t.willYouAttend}</legend>
-              <label className={attending === "yes" ? "choice is-selected" : "choice"}>
+              <label
+                className={
+                  attending === "yes" ? "choice is-selected" : "choice"
+                }>
                 <input
                   type="radio"
                   name="attending"
@@ -112,7 +132,10 @@ export default function Rsvp() {
                 </span>
                 {t.willAttend}
               </label>
-              <label className={attending === "no" ? "choice is-selected" : "choice"}>
+              <label
+                className={
+                  attending === "no" ? "choice is-selected" : "choice"
+                }>
                 <input
                   type="radio"
                   name="attending"
@@ -127,11 +150,42 @@ export default function Rsvp() {
               </label>
             </fieldset>
 
+            {attending === "yes" && (
+              <div className="guest-count">
+                <span id="guest-count-label">{t.guestCount}</span>
+                <div
+                  className="guest-stepper"
+                  role="group"
+                  aria-labelledby="guest-count-label">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setGuests((count) => Math.max(MIN_GUESTS, count - 1))
+                    }
+                    disabled={loading || guests <= MIN_GUESTS}
+                    aria-label={t.decreaseGuests}>
+                    −
+                  </button>
+                  <span className="guest-count-value" aria-live="polite">
+                    {formatDigits(guests, locale)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setGuests((count) => Math.min(MAX_GUESTS, count + 1))
+                    }
+                    disabled={loading || guests >= MAX_GUESTS}
+                    aria-label={t.increaseGuests}>
+                    +
+                  </button>
+                </div>
+              </div>
+            )}
+
             <button
               className="confirm-btn"
               type="submit"
-              disabled={loading || !name.trim() || !attending}
-            >
+              disabled={loading || !name.trim() || !attending}>
               {loading ? t.submitting : t.confirm}
             </button>
 
