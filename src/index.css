@@ -1,6 +1,8 @@
+@import url("./styles/fonts/fonts.css");
+
 :root {
-  --sage: #6c7e54;
-  --sage-deep: #4e5a38;
+  --sage: rgba(108, 126, 84, 0.75);
+  --sage-deep: radial-gradient(circle at 30% 30%, #6c7e54, rgb(78, 96, 54));
   --gold: #967928;
   --cream: #fffaf2;
   --ink: #243041;
@@ -65,7 +67,7 @@ p {
   display: grid;
   place-items: center;
   padding: 32px 16px;
-  background: #6a7348;
+  background: #6c7e54;
   position: relative;
   overflow: hidden;
 }
@@ -116,12 +118,16 @@ p {
 
 .env-card {
   position: relative;
-  width: min(440px, 92vw);
+  width: min(600px, 92vw);
   min-height: 300px;
   padding: 28px 36px 32px;
-  background: #f6f1e4;
+  background: rgba(255, 250, 242, 0.95);
   border-radius: 10px;
-  box-shadow: 0 22px 50px rgba(30, 36, 18, 0.35);
+  border: 1px solid rgba(150, 121, 40, 0.15);
+  box-shadow:
+    0 25px 60px -12px rgba(0, 0, 0, 0.45),
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    0 0 40px rgba(150, 121, 40, 0.15);
   text-align: center;
   overflow: hidden;
   color: var(--sage-deep);
@@ -144,36 +150,31 @@ p {
 .env-flora-tl {
   width: 180px;
   top: -46px;
-  left: -58px;
+  left: -110px;
   transform: rotate(18deg);
-  opacity: 0.95;
+  opacity: 0.65;
 }
 
 .env-flora-tr {
   width: 170px;
   top: -36px;
-  right: -62px;
+  right: -82px;
+  opacity: 0.65;
   transform: scaleX(-1) rotate(8deg);
 }
 
-.env-flora-bl,
-.env-flora-br {
-  width: 230px;
-  bottom: -28px;
-}
-
 .env-flora-bl {
-  left: -36px;
-}
-.env-flora-br {
-  right: -36px;
-  transform: scaleX(-1);
+  bottom: -110px;
+  left: 0;
+  right: 0;
+  transform: scale(1.1);
+  opacity: 0.65;
 }
 
 .env-heart {
-  width: 54px;
-  height: 54px;
-  margin: 4px auto 8px;
+  width: 56px;
+  height: 56px;
+  margin: 4px auto 32px;
   border-radius: 50%;
   background: var(--sage-deep);
   color: #fff;
@@ -192,14 +193,15 @@ p {
   align-items: center;
   margin: 0;
   font-family: "Beau Rivage", cursive;
-  font-size: 58px;
-  line-height: 0.78;
-  color: #445033;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.25;
+  color: #6c7e54;
 }
 
 .env-amp {
   font-family: "Clicker Script", cursive;
-  font-size: 28px;
+  font-size: 20px;
   line-height: 1;
 }
 
@@ -210,7 +212,7 @@ p {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin: 10px 0 12px;
+  margin: 32px 0;
 }
 
 .env-rule span {
@@ -230,8 +232,9 @@ p {
 .env-line {
   position: relative;
   z-index: 1;
-  font-family: "EB Garamond", serif;
-  color: #5d6848;
+  font-family: "Lora", serif;
+  color: rgba(108, 126, 84, 0.75);
+  margin-bottom: 16px;
 }
 
 .env-date {
@@ -252,7 +255,7 @@ p {
   background: #66744c;
   color: var(--cream);
   padding: 9px 34px;
-  font-family: "EB Garamond", serif;
+  font-family: "Lora", serif;
   font-size: 18px;
   box-shadow: 0 8px 16px rgba(55, 64, 36, 0.25);
 }
@@ -302,49 +305,52 @@ p {
 }
 
 .sprig-a {
-  left: -30px;
-  top: 620px;
+  left: -100px;
+  top: 1000px;
   width: 220px;
-  transform: scaleY(-1) rotate(-150deg);
-  opacity: 0.8;
+  transform: scaleY(-1) rotate(-170deg);
+  opacity: 0.3;
 }
 .sprig-b {
-  right: -90px;
-  top: 540px;
+  right: -160px;
+  top: 980px;
   width: 340px;
-  transform: rotate(12deg);
+  transform: rotate(-8deg);
+  opacity: 0.3;
 }
 .sprig-c {
-  left: -120px;
-  top: 1500px;
-  width: 360px;
-  opacity: 0.9;
+  left: 90px;
+  top: 2000px;
+  width: 300px;
+  opacity: 0.1;
+  transform: rotate(25deg);
 }
 .sprig-d {
   right: -70px;
-  top: 2100px;
+  top: 2240px;
   width: 300px;
-  transform: rotate(18deg);
-  opacity: 0.85;
+  transform: rotate(-52deg);
+  opacity: 0.7;
 }
 .sprig-e {
   left: -40px;
-  top: 2800px;
+  top: 2960px;
   width: 230px;
   transform: rotate(20deg);
 }
 .sprig-f {
-  right: -110px;
-  top: 3300px;
-  width: 340px;
-  transform: scaleX(-1) rotate(-12deg);
+  right: -140px;
+  top: 3410px;
+  width: 310px;
+  transform: scaleX(-1) rotateY(180deg);
+  opacity: 0.4;
 }
 .sprig-g {
-  left: -80px;
-  top: 3900px;
-  width: 280px;
-  transform: rotate(-20deg);
-  opacity: 0.9;
+  left: -110px;
+  top: 4120px;
+  width: 250px;
+  transform: rotate(20deg);
+  opacity: 0.3;
 }
 .sprig-h {
   right: -60px;
@@ -354,20 +360,20 @@ p {
 }
 
 .hero {
-  padding: 54px 20px 0;
+  padding: 68px 20px 0;
   text-align: center;
 }
 
 .save-date {
-  font-size: 17px;
+  font-size: 20px;
   letter-spacing: 0.04em;
   color: var(--gold);
-  margin-bottom: 18px;
+  margin-bottom: 10.7%;
 }
 
 .wreath {
   position: relative;
-  width: min(620px, 96%);
+  width: min(600px, 96%);
   margin: 0 auto;
 }
 
@@ -384,11 +390,11 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 30px;
   font-family: "Viaoda Libre", "Times New Roman", serif;
   font-size: 35px;
   letter-spacing: 0.04em;
-  color: var(--sage);
+  color: rgb(108, 126, 84);
   line-height: 1;
 }
 
@@ -399,20 +405,27 @@ p {
   line-height: 1;
 }
 
+.names-amp {
+  font-family: "Beau Rivage", cursive;
+  color: rgb(108, 126, 84);
+  font-size: 44px;
+  margin: 10px 0;
+}
+
 .names {
-  margin-top: 8px;
+  margin: 120px 0;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 16px;
 }
 
 .names p {
-  margin-bottom: 10px;
-  color: var(--gold);
-  letter-spacing: 0.14em;
-  font-size: 13px;
+  margin-bottom: 16px;
+  color: rgb(108, 126, 84);
+  letter-spacing: normal;
+  font-size: 16px;
   text-transform: uppercase;
 }
 
@@ -421,7 +434,7 @@ p {
   font-weight: 400;
   font-size: clamp(46px, 6vw, 54px);
   line-height: 1;
-  color: var(--sage);
+  color: rgb(108, 126, 84);
 }
 
 .gallery,
@@ -444,7 +457,7 @@ p {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--sage);
+  color: rgb(108, 126, 84);
 }
 
 .gallery {
@@ -505,15 +518,19 @@ p {
   border-radius: 50%;
   background: rgba(35, 35, 35, 0.55);
   color: white;
-  font-size: 24px;
+  font-size: 34px;
   line-height: 1;
+  font-family: "Clicker Script";
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stack-prev {
-  left: calc(50% - 148px);
+  left: calc(50% - 248px);
 }
 .stack-next {
-  right: calc(50% - 148px);
+  right: calc(50% - 248px);
 }
 
 .dots {
@@ -540,7 +557,7 @@ p {
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 40;
+  z-index: 100;
   background: rgba(18, 18, 16, 0.88);
   display: grid;
   place-items: center;
@@ -561,6 +578,7 @@ p {
   color: white;
   font-size: 42px;
   line-height: 1;
+  font-family: "Clicker Script";
 }
 
 .lightbox-close {
@@ -587,7 +605,7 @@ p {
 }
 
 .when-row {
-  margin: 14px auto 8px;
+  margin: 24px auto;
   width: min(240px, 100%);
   display: flex;
   justify-content: space-between;
@@ -628,12 +646,12 @@ p {
 }
 
 .countdown {
-  margin-top: 26px;
+  margin-top: 40px;
 }
 
 .countdown h2 {
   color: var(--gold);
-  font-family: "EB Garamond", serif;
+  font-family: "Lora", serif;
   font-weight: 400;
   font-size: 22px;
   letter-spacing: 0.08em;
@@ -648,7 +666,7 @@ p {
 }
 
 .reception-time {
-  margin-top: 22px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -659,7 +677,7 @@ p {
 }
 
 .reception-time strong {
-  color: var(--sage);
+  color: rgb(108, 126, 84);
   letter-spacing: 0;
   text-transform: none;
 }
@@ -673,8 +691,8 @@ p {
 }
 
 .calendar-title {
-  padding: 10px 0 4px;
-  font-family: "The Nautigal", cursive;
+  padding: 16px 0;
+  font-family: "Clicker Script", cursive;
   font-size: 32px;
   font-weight: 700;
   line-height: 1;
@@ -727,14 +745,14 @@ p {
 
 .calendar-link {
   display: inline-block;
-  margin-top: 16px;
+  margin-top: 24px;
   color: var(--sage);
   font-size: 16px;
   text-underline-offset: 4px;
 }
 
 .rsvp {
-  padding: 28px 16px 8px;
+  padding: 64px 16px;
 }
 
 .rsvp-card {
@@ -877,7 +895,7 @@ fieldset legend {
 .rsvp-thanks p:first-child {
   color: var(--sage-deep);
   font-size: 18px;
-  font-family: "EB Garamond", serif;
+  font-family: "Lora", serif;
 }
 
 .rsvp-edit {
@@ -888,6 +906,13 @@ fieldset legend {
   text-decoration: underline;
   text-underline-offset: 3px;
   padding: 0;
+}
+
+.rsvp-error {
+  margin-top: 12px;
+  color: #b42318;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .venue {
@@ -923,10 +948,10 @@ fieldset legend {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 14px;
+  margin-top: 24px;
   color: var(--gold);
   font-family: "Roboto", sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -955,7 +980,7 @@ fieldset legend {
 }
 
 .schedule {
-  padding: 28px 16px 10px;
+  padding: 64px 16px;
 }
 
 .schedule ol {
@@ -1046,7 +1071,7 @@ fieldset legend {
 .send {
   border-radius: 7px;
   padding: 8px 18px;
-  font-family: "EB Garamond", serif;
+  font-family: "Lora", serif;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1206,7 +1231,13 @@ fieldset legend {
 
   .sprig {
     width: 180px;
-    opacity: 0.8;
+    opacity: 0.2;
+  }
+
+  .sprig-f,
+  .sprig-g,
+  .sprig-h {
+    display: none;
   }
 
   .stack {
@@ -1236,6 +1267,10 @@ fieldset legend {
 
   .venue iframe {
     height: 240px;
+  }
+
+  .closing {
+    padding: 0px 28px 50dvw;
   }
 }
 

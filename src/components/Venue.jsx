@@ -1,4 +1,9 @@
-import { directionsUrl, mapEmbedUrl, wedding } from "../data.js";
+import {
+  directionsUrl,
+  directionsUrlInNeshan,
+  mapEmbedUrl,
+  wedding,
+} from "../data.js";
 
 export default function Venue() {
   return (
@@ -18,9 +23,28 @@ export default function Venue() {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       />
-      <a className="directions" href={directionsUrl} target="_blank" rel="noreferrer">
-        <span aria-hidden="true">⌖</span> Get directions
-      </a>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
+        <a
+          className="directions"
+          href={directionsUrl}
+          target="_blank"
+          rel="noreferrer">
+          <span aria-hidden="true">⌖</span> Get directions In Google Maps
+        </a>
+        <a
+          className="directions"
+          href={directionsUrlInNeshan}
+          target="_blank"
+          rel="noreferrer">
+          <span aria-hidden="true">⌖</span> Get directions In Neshan
+        </a>
+      </div>
     </section>
   );
 }

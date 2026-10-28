@@ -8,14 +8,15 @@ function initiallyOpen() {
 
 export default function App() {
   const [opened, setOpened] = useState(initiallyOpen);
+  const [autoScroll, setAutoScroll] = useState(false);
 
   function openInvitation() {
     const url = new URL(window.location.href);
     url.searchParams.set("open", "1");
     window.history.pushState({}, "", url);
+    setAutoScroll(true);
     setOpened(true);
-    window.dispatchEvent(new Event("invite-open"));
   }
 
-  return opened ? <Invitation /> : <Envelope onOpen={openInvitation} />;
+  return opened ? <Invitation autoScroll={autoScroll} /> : <Envelope onOpen={openInvitation} />;
 }

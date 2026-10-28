@@ -32,6 +32,7 @@ export const wedding = {
 const encodedAddress = encodeURIComponent(wedding.address);
 
 export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+export const directionsUrlInNeshan = `https://nshn.ir/b2sbvbiVyxB_9z`;
 
 export const mapEmbedUrl = `https://maps.google.com/maps?q=${encodedAddress}&z=15&output=embed&hl=en`;
 

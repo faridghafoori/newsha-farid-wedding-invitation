@@ -1,65 +1,76 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function MusicButton() {
-  const audioRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
-  const [ready, setReady] = useState(false);
+const SRC = "/music/music1.mp3";
 
-  useEffect(() => {
-    const audio = new Audio("/music.mp3");
+let audio;
+
+function ensureAudio() {
+  if (!audio) {
+    audio = new Audio(SRC);
     audio.loop = true;
     audio.preload = "auto";
-    audioRef.current = audio;
+  }
+  return audio;
+}
 
-    function markReady() {
-      setReady(true);
+export function playInviteMusic() {
+  return ensureAudio().play();
+}
+
+export default function MusicButton() {
+  const [playing, setPlaying] = useState(() => Boolean(audio && !audio.paused));
+  const [missing, setMissing] = useState(false);
+
+  useEffect(() => {
+    const track = ensureAudio();
+
+    function sync() {
+      setPlaying(!track.paused);
     }
     function markMissing() {
-      setReady(false);
+      setMissing(true);
+      setPlaying(false);
     }
 
-    audio.addEventListener("canplay", markReady);
-    audio.addEventListener("error", markMissing);
+    track.addEventListener("play", sync);
+    track.addEventListener("pause", sync);
+    track.addEventListener("error", markMissing);
+    if (track.error) markMissing();
+    else sync();
 
-    function playFromInvite() {
-      audio
-        .play()
-        .then(() => setPlaying(true))
-        .catch(() => setPlaying(false));
-    }
-
-    window.addEventListener("invite-open", playFromInvite);
     return () => {
-      audio.pause();
-      audio.removeEventListener("canplay", markReady);
-      audio.removeEventListener("error", markMissing);
-      window.removeEventListener("invite-open", playFromInvite);
+      track.removeEventListener("play", sync);
+      track.removeEventListener("pause", sync);
+      track.removeEventListener("error", markMissing);
     };
   }, []);
 
   async function toggle() {
-    const audio = audioRef.current;
-    if (!audio || !ready) return;
-    if (playing) {
-      audio.pause();
+    const track = ensureAudio();
+    if (missing || track.error) return;
+    if (!track.paused) {
+      track.pause();
       setPlaying(false);
       return;
     }
     try {
-      await audio.play();
+      await track.play();
       setPlaying(true);
     } catch {
       setPlaying(false);
     }
   }
 
+  const muted = !playing;
+
   return (
     <button
       type="button"
       className={`music ${playing ? "is-playing" : ""}`}
       onClick={toggle}
-      aria-label={playing ? "Pause music" : "Play music"}
-      title={ready ? "Music" : "Add public/music.mp3 to enable music"}
+      aria-label={muted ? "Unmute music" : "Mute music"}
+      aria-pressed={playing}
+      title={missing ? "Music file is missing" : muted ? "Unmute" : "Mute"}
     >
       <span className="music-disc" aria-hidden="true" />
       <span className="music-bars" aria-hidden="true">

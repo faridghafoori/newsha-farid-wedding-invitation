@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { SCRIPT_URL } from "../api/config.js";
 
 const STORAGE_KEY = "nf-wedding-rsvp";
 
@@ -6,6 +7,8 @@ export default function Rsvp() {
   const [name, setName] = useState("");
   const [attending, setAttending] = useState("");
   const [saved, setSaved] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -17,11 +20,41 @@ export default function Rsvp() {
     }
   }, []);
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
-    const entry = { name: name.trim(), attending, at: new Date().toISOString() };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entry));
-    setSaved(entry);
+    if (!name.trim() || !attending || loading) return;
+
+    setLoading(true);
+    setError("");
+
+    const entry = {
+      name: name.trim(),
+      attending,
+      at: new Date().toISOString(),
+    };
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({
+          name: entry.name,
+          attendance: attending === "yes" ? "attending" : "not_attending",
+        }),
+      });
+
+      // no-cors responses are opaque, so this does not
+      // verify that Google Sheets saved the submission.
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entry));
+      setSaved(entry);
+    } catch {
+      setError("Unable to submit your RSVP. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -46,6 +79,7 @@ export default function Rsvp() {
               onClick={() => {
                 setName(saved.name);
                 setAttending(saved.attending);
+                setError("");
                 setSaved(null);
               }}
             >
@@ -61,11 +95,12 @@ export default function Rsvp() {
                 onChange={(event) => setName(event.target.value)}
                 placeholder="Enter your name"
                 required
-                maxLength={80}
+                maxLength={100}
+                disabled={loading}
               />
             </label>
 
-            <fieldset>
+            <fieldset disabled={loading}>
               <legend>Will you attend?</legend>
               <label className={attending === "yes" ? "choice is-selected" : "choice"}>
                 <input
@@ -96,9 +131,19 @@ export default function Rsvp() {
               </label>
             </fieldset>
 
-            <button className="confirm-btn" type="submit" disabled={!name.trim() || !attending}>
-              Confirm
+            <button
+              className="confirm-btn"
+              type="submit"
+              disabled={loading || !name.trim() || !attending}
+            >
+              {loading ? "Submitting..." : "Confirm"}
             </button>
+
+            {error && (
+              <p className="rsvp-error" role="alert">
+                {error}
+              </p>
+            )}
           </>
         )}
       </form>

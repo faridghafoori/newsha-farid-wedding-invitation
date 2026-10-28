@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { wedding } from "../data.js";
 
 function offsetOf(index, current, total) {
@@ -69,20 +70,22 @@ export default function Gallery() {
         ))}
       </div>
 
-      {lightbox && (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
-          <button type="button" className="lightbox-close" onClick={() => setLightbox(false)} aria-label="Close photo">
-            ×
-          </button>
-          <button type="button" className="lightbox-nav lightbox-prev" onClick={() => step(-1)} aria-label="Previous photo">
-            ‹
-          </button>
-          <img src={photos[current].src} alt={photos[current].alt} />
-          <button type="button" className="lightbox-nav lightbox-next" onClick={() => step(1)} aria-label="Next photo">
-            ›
-          </button>
-        </div>
-      )}
+      {lightbox &&
+        createPortal(
+          <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+            <button type="button" className="lightbox-close" onClick={() => setLightbox(false)} aria-label="Close photo">
+              ×
+            </button>
+            <button type="button" className="lightbox-nav lightbox-prev" onClick={() => step(-1)} aria-label="Previous photo">
+              ‹
+            </button>
+            <img src={photos[current].src} alt={photos[current].alt} />
+            <button type="button" className="lightbox-nav lightbox-next" onClick={() => step(1)} aria-label="Next photo">
+              ›
+            </button>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }

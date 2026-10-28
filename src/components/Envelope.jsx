@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { wedding } from "../data.js";
+import { playInviteMusic } from "./MusicButton.jsx";
 
 const sparks = [
   { className: "spark spark-a", glyph: "✦" },
@@ -16,25 +17,40 @@ export default function Envelope({ onOpen }) {
   function handleOpen() {
     if (leaving) return;
     setLeaving(true);
+    playInviteMusic().catch(() => {});
     window.setTimeout(onOpen, 520);
   }
 
   return (
     <main className={`envelope ${leaving ? "is-leaving" : ""}`}>
       {sparks.map((spark) => (
-        <span key={spark.className} className={spark.className} aria-hidden="true">
+        <span
+          key={spark.className}
+          className={spark.className}
+          aria-hidden="true">
           {spark.glyph}
         </span>
       ))}
 
       <section className="env-card" aria-label="Wedding invitation">
-        <img className="env-flora env-flora-tl" src="/theme/flower3.webp" alt="" />
-        <img className="env-flora env-flora-tr" src="/theme/flower2.webp" alt="" />
-        <img className="env-flora env-flora-bl" src="/theme/flower6.webp" alt="" />
-        <img className="env-flora env-flora-br" src="/theme/flower6.webp" alt="" />
+        <img
+          className="env-flora env-flora-tl"
+          src="/theme/flower3.webp"
+          alt=""
+        />
+        <img
+          className="env-flora env-flora-tr"
+          src="/theme/flower2.webp"
+          alt=""
+        />
+        <img
+          className="env-flora env-flora-bl"
+          src="/theme/flower6.webp"
+          alt=""
+        />
 
         <div className="env-heart" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22">
+          <svg viewBox="0 0 24 24" width="36" height="36">
             <path
               fill="currentColor"
               d="M12 20s-7-4.4-7-9.1C5 8 6.8 6.2 9.1 6.2c1.3 0 2.4.6 2.9 1.6.5-1 1.6-1.6 2.9-1.6 2.3 0 4.1 1.8 4.1 4.7C19 15.6 12 20 12 20z"

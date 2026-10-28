@@ -1,5 +1,5 @@
 import { wedding } from "../data.js";
-import DressCode from "./DressCode.jsx";
+import AutoScroll from "./AutoScroll.jsx";
 import Gallery from "./Gallery.jsx";
 import MusicButton from "./MusicButton.jsx";
 import Reception from "./Reception.jsx";
@@ -18,9 +18,10 @@ const sprigs = [
   { src: "/theme/flower4.webp", className: "sprig sprig-h" },
 ];
 
-export default function Invitation() {
+export default function Invitation({ autoScroll = false }) {
   return (
     <main className="page">
+      <AutoScroll active={autoScroll} />
       <article className="sheet">
         <div className="paper" aria-hidden="true" />
         {sprigs.map((sprig) => (
@@ -55,7 +56,7 @@ export default function Invitation() {
         <Reception />
         <Rsvp />
         <Venue />
-        <DressCode />
+        {/* <DressCode /> */}
         <Schedule />
         {/* <Guestbook /> */}
 
