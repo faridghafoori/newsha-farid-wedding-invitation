@@ -3,7 +3,7 @@ import { SCRIPT_URL } from "../api/config.js";
 import { formatDigits } from "../i18n/format.js";
 import { useI18n } from "../i18n/LocaleContext.jsx";
 
-const STORAGE_KEY = "nf-wedding-rsvp";
+const STORAGE_KEY = "wedding-rsvp";
 const MIN_GUESTS = 1;
 const MAX_GUESTS = 12;
 
