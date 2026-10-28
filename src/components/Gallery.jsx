@@ -19,6 +19,12 @@ export default function Gallery() {
   }
 
   useEffect(() => {
+    if (lightbox || photos.length < 2) return undefined;
+    const timer = window.setInterval(() => step(1), 5000);
+    return () => window.clearInterval(timer);
+  }, [lightbox, photos.length, current]);
+
+  useEffect(() => {
     if (!lightbox) return undefined;
     function onKey(event) {
       if (event.key === "Escape") setLightbox(false);
