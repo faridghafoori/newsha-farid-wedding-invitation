@@ -48,7 +48,7 @@ export const copy = {
     countdownTitle: "Countdown",
     dayIsHere: "The day is here",
     countdown: (parts) =>
-      `${parts.days} days ${parts.hours} hours ${parts.minutes} min ${parts.seconds} sec`,
+      `${parts.days} days ${parts.hours} hours ${parts.minutes} min`,
     receptionLabel: "Reception",
     addToCalendar: "Add to Calendar",
     calendarTitle: "Farid & Newsha's Wedding",
@@ -149,7 +149,7 @@ export const copy = {
     dayIsHere: "امروز همان روز است",
     countdown: (parts) => {
       const n = (value) => formatDigits(value, "fa");
-      return `${n(parts.days)} روز و ${n(parts.hours)} ساعت و ${n(parts.minutes)} دقیقه و ${n(parts.seconds)} ثانیه`;
+      return `${n(parts.days)} روز و ${n(parts.hours)} ساعت و ${n(parts.minutes)} دقیقه`;
     },
     receptionLabel: "پذیرایی",
     addToCalendar: "افزودن به تقویم",

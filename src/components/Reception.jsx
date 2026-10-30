@@ -28,7 +28,10 @@ function monthCells(firstWeekday, daysInMonth, weekStartsOn) {
 
 function Calendar() {
   const { locale, t } = useI18n();
-  const jalali = locale === "fa" ? jalaliMonthOf(wedding.year, wedding.monthIndex, wedding.day) : null;
+  const jalali =
+    locale === "fa"
+      ? jalaliMonthOf(wedding.year, wedding.monthIndex, wedding.day)
+      : null;
   const firstWeekday = jalali
     ? jalali.firstWeekday
     : new Date(wedding.year, wedding.monthIndex, 1).getDay();
