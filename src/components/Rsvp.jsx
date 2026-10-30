@@ -37,7 +37,7 @@ export default function Rsvp() {
     const entry = {
       name: name.trim(),
       attending,
-      guestCount: party,
+      guests: party,
       at: new Date().toISOString(),
     };
 
